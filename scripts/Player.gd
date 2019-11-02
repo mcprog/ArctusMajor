@@ -21,6 +21,10 @@ var x_axis = 0;
 var y_axis = 0;
 var velocity = Vector2.ZERO
 var audio_position;
+var Bullet = preload("res://scenes/Bullet.tscn");
+
+const Cooldown = 0.8;
+var shoot_timer = 0.0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -55,6 +59,15 @@ func animate(type):
 	else:
 		animator.play("idle");
 
+func shoot():
+	if (shoot_timer > 0.0):
+		return
+	shoot_timer = Cooldown
+	
+	var bullet = Bullet.instance();
+	bullet.start(position, direction * 90)
+	get_parent().add_child(bullet);
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	velocity.y = y_axis;
@@ -62,6 +75,9 @@ func _process(delta):
 	velocity *= speed;
 	
 	move_and_slide(velocity);
+	if (shoot_timer > 0.0):
+		shoot_timer -= delta;
+	
 	if (y_axis == 0 and x_axis == 0):
 		animate(Animation.Idle);
 		if (audio.playing):
@@ -85,6 +101,8 @@ func _input(event):
 	elif (event.is_action_pressed("east")):
 		x_axis += 1
 		face_direction(Direction.East)
+	elif (event.is_action_pressed("shoot")):
+		shoot()
 
 	if (event.is_action_released("south")):
 		y_axis -= 1;
