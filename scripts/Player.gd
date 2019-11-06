@@ -46,6 +46,9 @@ func _ready():
 	update_health()
 	update_xp()
 
+func spawn_at(vect):
+	position = vect;
+
 func face_direction(new_direction):
 	direction = new_direction;
 	rotation_degrees = 90 * direction;

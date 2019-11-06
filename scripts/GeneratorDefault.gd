@@ -6,6 +6,7 @@ export(int) var Seed;
 
 onready var groundmap = $GroundMap;
 onready var wallmap = $WallMap;
+onready var player = $Player;
 
 export var LevelSize = 64;
 export (float, 0, 100, 1) var Octaves = 12
@@ -18,6 +19,7 @@ export var bound_width = 70;
 export var wall_min = 0.2;
 
 var noise_gen:OpenSimplexNoise
+var rng:RandomNumberGenerator
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,6 +33,19 @@ func _ready():
 	generate_bounds()
 	wallmap.update_bitmask_region();
 	groundmap.update_bitmask_region()
+	rng = RandomNumberGenerator.new();
+	rng.seed = Seed;
+	#rng.randomize();
+	spawn_player()
+
+func spawn_player():
+	print_debug("spawning player..");
+	var x = rng.randi_range(1, LevelSize - 1);
+	var y = rng.randi_range(1, LevelSize - 1);
+	if (wallmap.get_cell(x, y) >= 0):
+		spawn_player();
+		return;
+	player.spawn_at(Vector2(x * 16, y * 16));
 
 func generate_bounds():
 	for y in range(bound_height):
