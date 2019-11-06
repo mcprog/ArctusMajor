@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/GeneratorDefault.gd" type="Script" id=1]
+[ext_resource path="res://tilesets/ground_set.tres" type="TileSet" id=2]
+[ext_resource path="res://tilesets/wall_set.tres" type="TileSet" id=3]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=4]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+Period = 16.0
+
+[node name="GroundMap" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 16, 16 )
+format = 1
+
+[node name="WallMap" type="TileMap" parent="."]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
+collision_use_kinematic = true
+format = 1
+
+[node name="KinematicBody2D" parent="." instance=ExtResource( 4 )]
