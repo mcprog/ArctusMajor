@@ -9,12 +9,13 @@ export (float, 0, 20, .01) var lacunarity = 3
 export (float, 0, 1, .01) var persistance = 0.4
 
 const TILE_SIZE = 16
-const MAP_SIZE = 64
+const MAP_SIZE = 128
 
 var coord:PackedScene = preload("res://Scenes/Coordinate.tscn")
 var noise_world:OpenSimplexNoise
 
 func _ready()->void:
+	var thread = Thread.new()
 	if (use_random_seed):
 		SEED = randi()
 	z_index = -1
@@ -24,7 +25,9 @@ func _ready()->void:
 	noise_world.period = period
 	noise_world.lacunarity = lacunarity
 	noise_world.persistence = persistance
+	thread.start(self, "generate_map")
 	generate_map()
+	thread.wait_to_finish()
 
 func generate_map()->void:
 	var offset := Vector2()
