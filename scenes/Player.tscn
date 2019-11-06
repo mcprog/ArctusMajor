@@ -45,6 +45,7 @@ radius = 6.15237
 scale = Vector2( 0.8, 0.8 )
 collision_layer = 2
 script = ExtResource( 1 )
+speed = 200.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/idle = SubResource( 1 )

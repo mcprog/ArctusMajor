@@ -15,6 +15,7 @@ export (float, 0, 1, .01) var Persistance = 0.4
 
 export var bound_height = 35;
 export var bound_width = 70;
+export var wall_min = 0.2;
 
 var noise_gen:OpenSimplexNoise
 
@@ -26,7 +27,7 @@ func _ready():
 	noise_gen.period = Period;
 	noise_gen.lacunarity = Lacunarity;
 	noise_gen.persistence = Persistance;
-	generate_ground()
+	generate_world()
 	generate_bounds()
 	wallmap.update_bitmask_region();
 	groundmap.update_bitmask_region()
@@ -42,11 +43,11 @@ func generate_bounds():
 			wallmap.set_cell(LevelSize + x, y, 0);
 	
 
-func generate_ground():
+func generate_world():
 	for x in range(LevelSize):
 		for y in range(LevelSize):
 			var noise_val = noise_gen.get_noise_2d(x, y);
-			if (noise_val < 0):
+			if (noise_val < wall_min):
 				pass
 			else:
 				wallmap.set_cell(x, y, 0);
