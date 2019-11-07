@@ -5,10 +5,11 @@ extends Control
 # var b = "text"
 onready var quit = $Panel/VBoxContainer/Quit;
 onready var resume = $Panel/VBoxContainer/Resume;
+onready var savename = $Panel/VBoxContainer/SaveName;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	savename.text = Global.ActiveName;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -27,3 +28,10 @@ func _on_Quit_pressed():
 	
 	get_tree().change_scene("res://scenes/StartMenu.tscn");
 	get_tree().paused = false;
+
+
+func _on_Save_pressed():
+	Save.save_active_game()
+	
+
+

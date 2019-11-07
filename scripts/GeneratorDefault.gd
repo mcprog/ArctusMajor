@@ -1,7 +1,7 @@
 extends Node2D
 
 
-export(int) var Seed;
+var Seed;
 
 
 onready var groundmap = $GroundMap;
@@ -23,6 +23,7 @@ var rng:RandomNumberGenerator
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Seed = Global.ActiveSeed
 	noise_gen = OpenSimplexNoise.new();
 	noise_gen.seed = Seed;
 	noise_gen.octaves = Octaves;

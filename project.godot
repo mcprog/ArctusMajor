@@ -19,6 +19,12 @@ config/name="ArctusMajor"
 run/main_scene="res://scenes/StartMenu.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://scripts/Global.gd"
+Save="*res://scripts/Save.gd"
+Words="*res://scripts/Words.gd"
+
 [importer_defaults]
 
 texture={
