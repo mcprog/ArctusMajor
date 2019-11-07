@@ -1,11 +1,11 @@
-extends Control
+extends MarginContainer
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
 
-onready var resume:Button = $Panel/VBoxContainer/Resume;
-onready var load_button:Button = $Panel/VBoxContainer/Load;
+onready var resume:Button = $HBoxContainer/VBoxContainer/Resume;
+onready var load_button:Button = $HBoxContainer/VBoxContainer/Load;
 
 var latest_save;
 
