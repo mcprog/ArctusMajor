@@ -1,17 +1,20 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://scripts/StartMenu.gd" type="Script" id=1]
-[ext_resource path="res://fonts/ferrum.tres" type="DynamicFont" id=2]
-[ext_resource path="res://styles/button_pressed.tres" type="StyleBox" id=3]
-[ext_resource path="res://styles/button_disabled.tres" type="StyleBox" id=4]
-[ext_resource path="res://styles/button.tres" type="StyleBox" id=5]
-[ext_resource path="res://fonts/modern_space.tres" type="DynamicFont" id=6]
+[ext_resource path="res://scenes/Background.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/StartMenu.gd" type="Script" id=2]
+[ext_resource path="res://fonts/ferrum.tres" type="DynamicFont" id=3]
+[ext_resource path="res://styles/button_pressed.tres" type="StyleBox" id=4]
+[ext_resource path="res://styles/button_disabled.tres" type="StyleBox" id=5]
+[ext_resource path="res://styles/button.tres" type="StyleBox" id=6]
+[ext_resource path="res://fonts/basalt.tres" type="DynamicFont" id=7]
+[ext_resource path="res://textures/space_art.png" type="Texture" id=8]
 
 [node name="Control" type="Control"]
-margin_left = 100.0
-margin_top = 100.0
-margin_right = 924.0
-margin_bottom = 500.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Background" parent="." instance=ExtResource( 1 )]
+margin_right = 1024.0
 
 [node name="StartMenu" type="MarginContainer" parent="."]
 anchor_left = 0.5
@@ -26,7 +29,7 @@ custom_constants/margin_right = 100
 custom_constants/margin_top = 100
 custom_constants/margin_left = 100
 custom_constants/margin_bottom = 100
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="StartMenu"]
 margin_left = 100.0
@@ -42,8 +45,8 @@ custom_constants/separation = 10
 [node name="Title" type="Label" parent="StartMenu/HBoxContainer/VBoxContainer"]
 margin_right = 291.0
 margin_bottom = 49.0
-custom_fonts/font = ExtResource( 2 )
-text = "Artus Major"
+custom_fonts/font = ExtResource( 3 )
+text = "Arctus Major"
 align = 1
 valign = 1
 
@@ -52,11 +55,15 @@ margin_top = 59.0
 margin_right = 291.0
 margin_bottom = 109.0
 rect_min_size = Vector2( 0, 50 )
-custom_styles/hover = ExtResource( 3 )
-custom_styles/pressed = ExtResource( 3 )
-custom_styles/disabled = ExtResource( 4 )
-custom_styles/normal = ExtResource( 5 )
-custom_fonts/font = ExtResource( 6 )
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 5 )
+custom_styles/normal = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color_disabled = Color( 0.235294, 0.235294, 0.235294, 1 )
+custom_colors/font_color = Color( 0.117647, 0.117647, 0.117647, 1 )
+custom_colors/font_color_hover = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
+custom_colors/font_color_pressed = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
 disabled = true
 text = "Resume Journey"
 
@@ -65,11 +72,15 @@ margin_top = 119.0
 margin_right = 291.0
 margin_bottom = 169.0
 rect_min_size = Vector2( 0, 50 )
-custom_styles/hover = ExtResource( 3 )
-custom_styles/pressed = ExtResource( 3 )
-custom_styles/disabled = ExtResource( 4 )
-custom_styles/normal = ExtResource( 5 )
-custom_fonts/font = ExtResource( 6 )
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 5 )
+custom_styles/normal = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color_disabled = Color( 0.235294, 0.235294, 0.235294, 1 )
+custom_colors/font_color = Color( 0.117647, 0.117647, 0.117647, 1 )
+custom_colors/font_color_hover = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
+custom_colors/font_color_pressed = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
 disabled = true
 text = "Load Journey"
 
@@ -78,11 +89,15 @@ margin_top = 179.0
 margin_right = 291.0
 margin_bottom = 229.0
 rect_min_size = Vector2( 0, 50 )
-custom_styles/hover = ExtResource( 3 )
-custom_styles/pressed = ExtResource( 3 )
-custom_styles/disabled = ExtResource( 4 )
-custom_styles/normal = ExtResource( 5 )
-custom_fonts/font = ExtResource( 6 )
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 5 )
+custom_styles/normal = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color_disabled = Color( 0.235294, 0.235294, 0.235294, 1 )
+custom_colors/font_color = Color( 0.117647, 0.117647, 0.117647, 1 )
+custom_colors/font_color_hover = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
+custom_colors/font_color_pressed = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
 text = "Begin New Journey"
 
 [node name="Options" type="Button" parent="StartMenu/HBoxContainer/VBoxContainer"]
@@ -90,11 +105,15 @@ margin_top = 239.0
 margin_right = 291.0
 margin_bottom = 289.0
 rect_min_size = Vector2( 0, 50 )
-custom_styles/hover = ExtResource( 3 )
-custom_styles/pressed = ExtResource( 3 )
-custom_styles/disabled = ExtResource( 4 )
-custom_styles/normal = ExtResource( 5 )
-custom_fonts/font = ExtResource( 6 )
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 5 )
+custom_styles/normal = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color_disabled = Color( 0.235294, 0.235294, 0.235294, 1 )
+custom_colors/font_color = Color( 0.117647, 0.117647, 0.117647, 1 )
+custom_colors/font_color_hover = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
+custom_colors/font_color_pressed = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
 disabled = true
 text = "Configure Parameters"
 
@@ -103,12 +122,38 @@ margin_top = 299.0
 margin_right = 291.0
 margin_bottom = 349.0
 rect_min_size = Vector2( 0, 50 )
-custom_styles/hover = ExtResource( 3 )
-custom_styles/pressed = ExtResource( 3 )
-custom_styles/disabled = ExtResource( 4 )
-custom_styles/normal = ExtResource( 5 )
-custom_fonts/font = ExtResource( 6 )
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 5 )
+custom_styles/normal = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color_disabled = Color( 0.235294, 0.235294, 0.235294, 1 )
+custom_colors/font_color = Color( 0.117647, 0.117647, 0.117647, 1 )
+custom_colors/font_color_hover = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
+custom_colors/font_color_pressed = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
 text = "Terminate Program"
+
+[node name="CenterContainer" type="CenterContainer" parent="StartMenu/HBoxContainer"]
+editor/display_folded = true
+margin_left = 295.0
+margin_right = 824.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="StartMenu/HBoxContainer/CenterContainer"]
+self_modulate = Color( 1, 1, 1, 0.490196 )
+margin_left = 116.0
+margin_top = 33.0
+margin_right = 413.0
+margin_bottom = 367.0
+
+[node name="TextureRect" type="TextureRect" parent="StartMenu/HBoxContainer/CenterContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 290.0
+margin_bottom = 327.0
+texture = ExtResource( 8 )
 [connection signal="pressed" from="StartMenu/HBoxContainer/VBoxContainer/Resume" to="StartMenu" method="_on_Resume_pressed"]
 [connection signal="pressed" from="StartMenu/HBoxContainer/VBoxContainer/Load" to="StartMenu" method="_on_Load_pressed"]
 [connection signal="pressed" from="StartMenu/HBoxContainer/VBoxContainer/Start" to="StartMenu" method="_on_Start_pressed"]
