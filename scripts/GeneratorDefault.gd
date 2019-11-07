@@ -31,7 +31,7 @@ func _ready():
 	noise_gen.lacunarity = Lacunarity;
 	noise_gen.persistence = Persistance;
 	generate_world()
-	generate_bounds()
+	#generate_bounds()
 	wallmap.update_bitmask_region();
 	groundmap.update_bitmask_region()
 	rng = RandomNumberGenerator.new();

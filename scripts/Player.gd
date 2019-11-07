@@ -17,11 +17,14 @@ onready var xp_value = $CanvasLayer/Control/MarginContainer/HBoxContainer/Bars/E
 onready var health_value = $CanvasLayer/Control/MarginContainer/HBoxContainer/Bars/Health/Count/Background/Number;
 onready var level_value = $CanvasLayer/Control/MarginContainer/HBoxContainer/Counters/Level/Background/Number;
 onready var bullet_value = $CanvasLayer/Control/MarginContainer/HBoxContainer/Counters/Bullets/Background/Number;
+onready var camera = $Camera2D;
 
 export(Direction) var direction  = Direction.South; 
+export var max_zoom = Vector2(1, 1);
 export var speed = 30.0;
 
 var audio;
+var shoot_audio;
 var animator;
 var walking;
 var x_axis = 0;
@@ -36,15 +39,21 @@ export var Increment = 5;
 var level = 1;
 var bullets = 250;
 
+var movement_locked = false;
+var zooming = false;
+var default_zoom: Vector2;
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	audio = get_node("AudioStreamPlayer2D");
+	audio = get_node("WalkSound");
+	shoot_audio = get_node("ShootSound");
 	animator = get_node("AnimationPlayer");
 	audio_position = 0.0;
 	walking = false;
 	face_direction(direction);
 	update_health()
 	update_xp()
+	default_zoom = camera.zoom;
 
 func spawn_at(vect):
 	position = vect;
@@ -81,6 +90,7 @@ func shoot():
 	var bullet = Bullet.instance();
 	bullet.start(position, direction * 90)
 	get_parent().add_child(bullet);
+	shoot_audio.play();
 	bullets -= 1;
 	bullet_value.text = str(bullets);
 	
@@ -94,6 +104,17 @@ func update_health():
 func update_xp():
 	xp_value.text = str(xp_progress.value);
 
+func handle_zoom(delta):
+	if (zooming and camera.zoom < max_zoom):
+		camera.zoom.x += delta;
+		camera.zoom.y += delta;
+	elif (not zooming):
+		if (camera.zoom > default_zoom):
+			camera.zoom.x -= delta;
+			camera.zoom.y -= delta;
+		else:
+			camera.zoom = default_zoom;
+			movement_locked = false;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -130,8 +151,8 @@ func _process(delta):
 	velocity.y = y_axis;
 	velocity.x = x_axis;
 	velocity *= speed;
-	
-	move_and_slide(velocity);
+	if (not movement_locked):
+		move_and_slide(velocity);
 	if (shoot_timer > 0.0):
 		shoot_timer -= delta;
 	
@@ -144,6 +165,7 @@ func _process(delta):
 		animate(Animation.Walking);
 		if (not audio.playing):
 			audio.play(audio_position)
+	handle_zoom(delta);
 
 func _input(event):
 	if (event.is_action_pressed("south")):
@@ -160,6 +182,9 @@ func _input(event):
 		face_direction(Direction.East)
 	elif (event.is_action_pressed("shoot")):
 		shoot()
+	elif (event.is_action_pressed("zoom")):
+		zooming = true;
+		movement_locked = true;
 	elif (event.is_action_released("south")):
 		y_axis -= 1;
 		retrospect_direction()
@@ -184,3 +209,5 @@ func _input(event):
 	elif (event.is_action_released("xp_sub")):
 		decrement(xp_progress);
 		update_xp()
+	elif (event.is_action_released("zoom")):
+		zooming = false;
