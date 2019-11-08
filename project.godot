@@ -29,7 +29,7 @@ Items="*res://scripts/Items.gd"
 [display]
 
 window/stretch/mode="viewport"
-window/stretch/aspect="keep_height"
+window/stretch/aspect="expand"
 
 [importer_defaults]
 

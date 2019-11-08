@@ -25,7 +25,25 @@ class SaveData:
 		return "{ " + filename + ", " + Name + ", " + str(Seed) + ", " + str(difficulty) + ", " + date_fmt + " }";
 	
 	static func sort(a:SaveData, b:SaveData) -> bool:
-		return a.date_fmt.casecmp_to(b.date_fmt) >= 0;
+		var listA = a.date_fmt.split('-');
+		var listB = b.date_fmt.split('-');
+		var yearA = int(listA[0]);
+		var yearB = int(listB[0]);
+		if (yearA == yearB):
+			var monthA = int(listA[1]);
+			var monthB = int(listB[1]);
+			if (monthA == monthB):
+				var dayA = int(listA[2]);
+				var dayB = int(listB[2]);
+				if (dayA == dayB):
+					var hourA = int(listA[3]);
+					var hourB = int(listB[3]);
+					if (hourA == hourB):
+						return int(listA[4]) > int(listB[4]);
+					return hourA > hourB;
+				return dayA > dayB;
+			return monthA > monthB;
+		return yearA > yearB;
 
 var saves: Array;
 var savenames: Array;

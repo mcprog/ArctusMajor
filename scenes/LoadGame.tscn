@@ -82,7 +82,6 @@ margin_right = 356.0
 margin_bottom = 260.0
 
 [node name="Descriptors" type="VBoxContainer" parent="LoadGame/HBoxContainer/MarginContainer/Details/HBoxContainer"]
-editor/display_folded = true
 margin_right = 98.0
 margin_bottom = 191.0
 custom_constants/separation = 25

@@ -4,12 +4,12 @@ extends Control
 # var a = 2
 # var b = "text"
 
-onready var seed_edit = $Panel/VBoxContainer/HBoxContainer/Right/Seed;
-onready var name_edit = $Panel/VBoxContainer/HBoxContainer/Right/Name;
-onready var difficulty_option = $Panel/VBoxContainer/HBoxContainer/Right/Difficulty;
-onready var edit = $Panel/VBoxContainer/Edit;
-onready var validate = $Panel/VBoxContainer/Validate
-onready var generate = $Panel/VBoxContainer/Generate
+onready var seed_edit = $HBoxContainer/VBoxContainer/HBoxContainer/Right/Seed;
+onready var name_edit = $HBoxContainer/VBoxContainer/HBoxContainer/Right/Name;
+onready var difficulty_option = $HBoxContainer/VBoxContainer/HBoxContainer/Right/Difficulty;
+onready var edit = $HBoxContainer/VBoxContainer/Edit;
+onready var validate = $HBoxContainer/VBoxContainer/Validate;
+onready var generate = $HBoxContainer/VBoxContainer/Generate;
 
 var validated_seed:int;
 
