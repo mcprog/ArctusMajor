@@ -1,12 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/PauseMenu.gd" type="Script" id=1]
-[ext_resource path="res://fonts/outer_space.tres" type="DynamicFont" id=2]
-[ext_resource path="res://styles/button_pressed.tres" type="StyleBox" id=3]
-[ext_resource path="res://styles/button_disabled.tres" type="StyleBox" id=4]
-[ext_resource path="res://styles/button.tres" type="StyleBox" id=5]
-[ext_resource path="res://fonts/modern_space.tres" type="DynamicFont" id=6]
-[ext_resource path="res://fonts/nasal.tres" type="DynamicFont" id=7]
+[ext_resource path="res://fonts/ferrum.tres" type="DynamicFont" id=2]
+[ext_resource path="res://scenes/StyledButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://fonts/nasal.tres" type="DynamicFont" id=4]
 
 [node name="Control" type="Control"]
 pause_mode = 2
@@ -29,72 +26,47 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = -10.0
 margin_bottom = -10.0
-custom_constants/separation = 10
+custom_constants/separation = 30
 
 [node name="Title" type="Label" parent="Panel/VBoxContainer"]
 margin_right = 380.0
-margin_bottom = 86.0
+margin_bottom = 49.0
 custom_fonts/font = ExtResource( 2 )
 text = "Paused"
 align = 1
 
-[node name="Resume" type="Button" parent="Panel/VBoxContainer"]
-margin_top = 96.0
+[node name="Resume" parent="Panel/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 79.0
 margin_right = 380.0
-margin_bottom = 182.0
-rect_min_size = Vector2( 0, 50 )
-custom_styles/hover = ExtResource( 3 )
-custom_styles/pressed = ExtResource( 3 )
-custom_styles/disabled = ExtResource( 4 )
-custom_styles/normal = ExtResource( 5 )
-custom_fonts/font = ExtResource( 6 )
+margin_bottom = 128.0
 text = "Resume Journey"
 
-[node name="Load" type="Button" parent="Panel/VBoxContainer"]
-margin_top = 192.0
+[node name="Load" parent="Panel/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 158.0
 margin_right = 380.0
-margin_bottom = 278.0
-rect_min_size = Vector2( 0, 50 )
-custom_styles/hover = ExtResource( 3 )
-custom_styles/pressed = ExtResource( 3 )
-custom_styles/disabled = ExtResource( 4 )
-custom_styles/normal = ExtResource( 5 )
-custom_fonts/font = ExtResource( 6 )
-disabled = true
-text = "Load Journey"
+margin_bottom = 207.0
+text = "Load Without Saving"
 
-[node name="Save" type="Button" parent="Panel/VBoxContainer"]
-margin_top = 288.0
+[node name="Save" parent="Panel/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 237.0
 margin_right = 380.0
-margin_bottom = 374.0
-rect_min_size = Vector2( 0, 50 )
-custom_styles/hover = ExtResource( 3 )
-custom_styles/pressed = ExtResource( 3 )
-custom_styles/disabled = ExtResource( 4 )
-custom_styles/normal = ExtResource( 5 )
-custom_fonts/font = ExtResource( 6 )
-disabled = true
+margin_bottom = 286.0
 text = "Save & Quit"
 
-[node name="Quit" type="Button" parent="Panel/VBoxContainer"]
-margin_top = 384.0
+[node name="Quit" parent="Panel/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 316.0
 margin_right = 380.0
-margin_bottom = 470.0
-rect_min_size = Vector2( 0, 50 )
-custom_styles/hover = ExtResource( 3 )
-custom_styles/pressed = ExtResource( 3 )
-custom_styles/disabled = ExtResource( 4 )
-custom_styles/normal = ExtResource( 5 )
-custom_fonts/font = ExtResource( 6 )
-text = "Quit Without saving"
+margin_bottom = 365.0
+text = "Quit Without Saving"
 
 [node name="SaveName" type="Label" parent="Panel/VBoxContainer"]
-margin_top = 480.0
+margin_top = 395.0
 margin_right = 380.0
-margin_bottom = 500.0
-custom_fonts/font = ExtResource( 7 )
+margin_bottom = 415.0
+custom_fonts/font = ExtResource( 4 )
 text = "save"
 align = 1
 [connection signal="pressed" from="Panel/VBoxContainer/Resume" to="." method="_on_Resume_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Load" to="." method="_on_Load_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

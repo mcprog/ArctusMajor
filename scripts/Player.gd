@@ -11,13 +11,15 @@ enum Animation {
 	Idle, Walking
 }
 
-onready var xp_progress = $CanvasLayer/Control/MarginContainer/HBoxContainer/Bars/Experience/XPProgress;
-onready var health_progress = $CanvasLayer/Control/MarginContainer/HBoxContainer/Bars/Health/HealthProgress;
-onready var xp_value = $CanvasLayer/Control/MarginContainer/HBoxContainer/Bars/Experience/Count/Background/Number;
-onready var health_value = $CanvasLayer/Control/MarginContainer/HBoxContainer/Bars/Health/Count/Background/Number;
-onready var level_value = $CanvasLayer/Control/MarginContainer/HBoxContainer/Counters/Level/Background/Number;
-onready var bullet_value = $CanvasLayer/Control/MarginContainer/HBoxContainer/Counters/Bullets/Background/Number;
+onready var xp_progress = $CanvasLayer/Hud/MarginContainer/HBoxContainer/Bars/Experience/XPProgress;
+onready var health_progress = $CanvasLayer/Hud/MarginContainer/HBoxContainer/Bars/Health/HealthProgress;
+onready var xp_value = $CanvasLayer/Hud/MarginContainer/HBoxContainer/Bars/Experience/Count/Background/Number;
+onready var health_value = $CanvasLayer/Hud/MarginContainer/HBoxContainer/Bars/Health/Count/Background/Number;
+onready var level_value = $CanvasLayer/Hud/MarginContainer/HBoxContainer/Counters/Level/Background/Number;
+onready var bullet_value = $CanvasLayer/Hud/MarginContainer/HBoxContainer/Counters/Bullets/Background/Number;
 onready var camera = $Camera2D;
+
+onready var inventory: Inventory = $CanvasLayer/Inventory;
 
 export(Direction) var direction  = Direction.South; 
 export var max_zoom = Vector2(1, 1);
@@ -42,6 +44,7 @@ var bullets = 250;
 var movement_locked = false;
 var zooming = false;
 var default_zoom: Vector2;
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

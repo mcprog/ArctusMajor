@@ -8,6 +8,7 @@ var ActiveName:String;
 var ActiveDatetime:String;
 var ActiveDifficulty:int;
 var ActiveFilename:String;
+var ActiveInventory:Dictionary;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

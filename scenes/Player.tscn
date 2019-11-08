@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://textures/astronaut.png" type="Texture" id=2]
 [ext_resource path="res://sounds/walking.wav" type="AudioStream" id=3]
 [ext_resource path="res://scenes/Hud.tscn" type="PackedScene" id=4]
-[ext_resource path="res://sounds/shoot.wav" type="AudioStream" id=5]
+[ext_resource path="res://scenes/Inventory.tscn" type="PackedScene" id=5]
+[ext_resource path="res://sounds/shoot.wav" type="AudioStream" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "idle"
@@ -70,9 +71,12 @@ volume_db = -50.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" parent="CanvasLayer" instance=ExtResource( 4 )]
+[node name="Hud" parent="CanvasLayer" instance=ExtResource( 4 )]
+
+[node name="Inventory" parent="CanvasLayer" instance=ExtResource( 5 )]
+visible = false
 
 [node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 6 )
 volume_db = -25.0
 pitch_scale = 2.0

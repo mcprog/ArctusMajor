@@ -20,6 +20,10 @@ class SaveData:
 	var Seed: int;
 	var difficulty: int;
 	var date_fmt: String;
+	var inventory: Dictionary = {};
+	
+	func add_stack(Name, count, slot):
+		inventory[Name] = Items.StackDictionary[Name].appropriate(count, slot);
 	
 	func to_str() -> String:
 		return "{ " + filename + ", " + Name + ", " + str(Seed) + ", " + str(difficulty) + ", " + date_fmt + " }";
@@ -73,7 +77,15 @@ static func save_game(Name:String, filename:String, Seed:int, difficulty:int) ->
 	save_file.store_line(Name)
 	save_file.store_line(str(Seed))
 	save_file.store_line(str(difficulty))
+	save_file.store_line(save_inventory());
 	save_file.close();
+
+static func save_inventory() -> String:
+	var ret = "";
+	var inv = Global.ActiveInventory;
+	for i in inv:
+		ret += inv[i].to_save() + "\n";
+	return ret;
 
 func load_all_saves() -> void:
 	saves = [];
@@ -86,6 +98,12 @@ func load_all_saves() -> void:
 		save_data.Name = file.get_line();
 		save_data.Seed = int(file.get_line());
 		save_data.difficulty = int(file.get_line());
+		var line = file.get_line();
+		
+		while (line != ""):
+			var arr = line.split(' ');
+			save_data.add_stack(arr[0], arr[1]. arr[2]);
+			line = file.get_line()
 		file.close();
 		add_save(save_data);
 	saves.sort_custom(SaveData, "sort");
