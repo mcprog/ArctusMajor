@@ -222,7 +222,9 @@ func pick_up() -> void:
 	var arr = drop_range.get_overlapping_areas();
 	print("trying pick up");
 	for i in range(arr.size()):
+		
 		print(arr[i].texture_path);
+		inventory.add_drop(arr[i]);
 
 
 

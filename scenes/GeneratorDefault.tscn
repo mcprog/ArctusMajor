@@ -31,6 +31,7 @@ position = Vector2( 208.024, 172.616 )
 
 [node name="Drop2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 972.124, 561.141 )
+count = 30
 
 [node name="Drop3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 1306.16, 399.397 )

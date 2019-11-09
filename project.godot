@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "Drop",
+"language": "GDScript",
+"path": "res://scripts/Drop.gd"
+}, {
 "base": "Control",
 "class": "Inventory",
 "language": "GDScript",
 "path": "res://scripts/Inventory.gd"
 } ]
 _global_script_class_icons={
+"Drop": "",
 "Inventory": ""
 }
 

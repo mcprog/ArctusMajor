@@ -40,6 +40,22 @@ func _ready():
 func set_slot(index: int, stack) -> void:
 	slots[index].set_slot(stack);
 
+func update_slot(stack) -> void:
+	slots[stack.slot].set_slot(stack);
+
+func add_drop(drop: Drop):
+	var path = drop.texture_path;
+	var count = drop.count;
+	for i in Stacks:
+		if (Stacks[i].item.texture_path == path):
+			
+			Stacks[i].increase(count);
+			update_slot(Stacks[i]);
+			return;
+	var new_stack = Items.StackDictionary[path].appopriate(count, Stacks.size());
+	Stacks[path] = new_stack;
+	set_slot(Stacks.size() - 1, Stacks[path]);
+
 func _input(event):
 	if (event.is_action_released("inventory")):
 		toggle();
