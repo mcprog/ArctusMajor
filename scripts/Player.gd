@@ -18,6 +18,7 @@ onready var health_value = $CanvasLayer/Hud/MarginContainer/HBoxContainer/Bars/H
 onready var level_value = $CanvasLayer/Hud/MarginContainer/HBoxContainer/Counters/Level/Background/Number;
 onready var bullet_value = $CanvasLayer/Hud/MarginContainer/HBoxContainer/Counters/Bullets/Background/Number;
 onready var camera = $Camera2D;
+onready var drop_range = $DropRange;
 
 onready var inventory: Inventory = $CanvasLayer/Inventory;
 
@@ -214,3 +215,14 @@ func _input(event):
 		update_xp()
 	elif (event.is_action_released("zoom")):
 		zooming = false;
+	elif (event.is_action_released("pickup")):
+		pick_up();
+
+func pick_up() -> void:
+	var arr = drop_range.get_overlapping_areas();
+	print("trying pick up");
+	for i in range(arr.size()):
+		print(arr[i].texture_path);
+
+
+

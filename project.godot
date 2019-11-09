@@ -131,6 +131,11 @@ inventory={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
  ]
 }
+pickup={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 
@@ -138,6 +143,7 @@ inventory={
 2d_physics/layer_2="player"
 2d_physics/layer_3="bullet"
 2d_physics/layer_4="enemy"
+2d_physics/layer_5="drop"
 
 [rendering]
 
