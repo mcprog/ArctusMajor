@@ -47,6 +47,7 @@ func _on_Resume_pressed():
 	Global.ActiveDifficulty = latest_save.difficulty;
 	Global.ActiveName = latest_save.Name;
 	Global.ActiveSeed = latest_save.Seed;
+	Global.ActiveInventory = latest_save.inventory;
 	get_tree().change_scene("res://scenes/GeneratorDefault.tscn");
 
 

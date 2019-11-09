@@ -22,7 +22,7 @@ class SaveData:
 	var date_fmt: String;
 	var inventory: Dictionary = {};
 	
-	func add_stack(Name, count, slot):
+	func add_stack(Name: String, count: int, slot: int) -> void:
 		inventory[Name] = Items.StackDictionary[Name].appropriate(count, slot);
 	
 	func to_str() -> String:
@@ -100,9 +100,10 @@ func load_all_saves() -> void:
 		save_data.difficulty = int(file.get_line());
 		var line = file.get_line();
 		
-		while (line != ""):
+		while (line != "" and line != null):
+			print("hhmm" + str(line.split(' ')));
 			var arr = line.split(' ');
-			save_data.add_stack(arr[0], arr[1]. arr[2]);
+			save_data.add_stack(arr[0], int(arr[1]), int(arr[2]));
 			line = file.get_line()
 		file.close();
 		add_save(save_data);

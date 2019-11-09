@@ -29,15 +29,13 @@ func toggle():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	slots = grid.get_children();
-#	var b = 9
-#	for i in range(test_items.size()):
-#		if (test_items[i] != null):
-#			set_slot(i, Items.Stack.new(test_items[i]))
+	Stacks = Global.ActiveInventory;
+	
 	for i in Stacks:
 		var stack = Stacks[i];
 		set_slot(stack.slot, stack);
 	
-	Global.ActiveInventory = Stacks;
+	#Global.ActiveInventory = Stacks;
 
 func set_slot(index: int, stack) -> void:
 	slots[index].set_slot(stack);

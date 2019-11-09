@@ -33,7 +33,8 @@ func _on_Quit_pressed():
 func _on_Save_pressed():
 	Save.save_active_game()
 	print(Save.save_inventory());
-
+	get_tree().change_scene("res://scenes/StartMenu.tscn");
+	get_tree().paused = false;
 
 
 
