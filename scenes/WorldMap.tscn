@@ -4,8 +4,12 @@
 
 [node name="WorldMap" type="Node2D"]
 script = ExtResource( 1 )
+octaves = 6.0
+period = 56.0
+lacunarity = 2.0
+persistance = 0.2
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 1024, 1024 )
+position = Vector2( 512, 512 )
 current = true
-zoom = Vector2( 4, 4 )
+zoom = Vector2( 1.5, 1.5 )
