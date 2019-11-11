@@ -4,7 +4,10 @@ extends KinematicBody2D
 # var a = 2
 # var b = "text"
 enum Direction {
-	South, West, North, East
+	South, 
+	West, 
+	North, 
+	East
 }
 
 enum Animation {
@@ -22,17 +25,16 @@ onready var drop_range = $DropRange;
 
 onready var inventory: Inventory = $CanvasLayer/Inventory;
 
-export(Direction) var direction  = Direction.South; 
-export var max_zoom = Vector2(1, 1);
-export var speed = 30.0;
+export (Vector2) var direction = Vector2(1, 0); 
+export (Vector2) var max_zoom = Vector2(1, 1);
+export (float) var speed = 30.0;
 
 var audio;
 var shoot_audio;
 var animator;
 var walking;
-var x_axis = 0;
-var y_axis = 0;
-var velocity = Vector2.ZERO
+var movement_input := Vector2.ZERO
+var velocity := Vector2.ZERO
 var audio_position;
 var Bullet = preload("res://scenes/Bullet.tscn");
 
@@ -42,8 +44,8 @@ export var Increment = 5;
 var level = 1;
 var bullets = 250;
 
-var movement_locked = false;
-var zooming = false;
+var movement_locked := false;
+var zooming := false;
 var default_zoom: Vector2;
 
 
@@ -54,7 +56,7 @@ func _ready():
 	animator = get_node("AnimationPlayer");
 	audio_position = 0.0;
 	walking = false;
-	face_direction(direction);
+#	face_direction(direction);
 	update_health()
 	update_xp()
 	default_zoom = camera.zoom;
@@ -62,23 +64,9 @@ func _ready():
 func spawn_at(vect):
 	position = vect;
 
-func face_direction(new_direction):
+func face_direction(new_direction:Vector2):
 	direction = new_direction;
-	rotation_degrees = 90 * direction;
-
-func walk(walk_direction):
-	face_direction(walk_direction);
-	walking = true;
-	
-func retrospect_direction():
-	if (y_axis == -1):
-		face_direction(Direction.North);
-	elif (x_axis == -1):
-		face_direction(Direction.West);
-	elif (y_axis == 1):
-		face_direction(Direction.South);
-	elif (x_axis == 1):
-		face_direction(Direction.East);
+	rotation = direction.angle();
 
 func animate(type):
 	if (type == Animation.Walking):
@@ -92,7 +80,7 @@ func shoot():
 	shoot_timer = Cooldown
 	
 	var bullet = Bullet.instance();
-	bullet.start(position, direction * 90)
+	bullet.start(position, direction.angle())
 	get_parent().add_child(bullet);
 	shoot_audio.play();
 	bullets -= 1;
@@ -151,16 +139,17 @@ func decrement(bar):
 		bar.value = new_progress;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	velocity.y = y_axis;
-	velocity.x = x_axis;
-	velocity *= speed;
+func _physics_process(delta):
+	get_movement()
+	
+	velocity = movement_input * speed
+#	velocity *= speed;
 	if (not movement_locked):
 		move_and_slide(velocity);
 	if (shoot_timer > 0.0):
 		shoot_timer -= delta;
 	
-	if (y_axis == 0 and x_axis == 0):
+	if (movement_input == Vector2()):
 		animate(Animation.Idle);
 		if (audio.playing):
 			audio_position = audio.get_playback_position()
@@ -171,37 +160,26 @@ func _process(delta):
 			audio.play(audio_position)
 	handle_zoom(delta);
 
+func get_movement():
+	var h_input = int(Input.is_action_pressed("east")) - int(Input.is_action_pressed("west"))
+	var v_input = int(Input.is_action_pressed("south")) - int(Input.is_action_pressed("north"))
+	movement_input = Vector2()
+	if (h_input != 0 || v_input != 0):
+		movement_input = Vector2(h_input, v_input).normalized()
+		face_direction(Vector2(v_input, -h_input))
+
 func _input(event):
-	if (event.is_action_pressed("south")):
-		y_axis += 1
-		face_direction(Direction.South)
-	elif (event.is_action_pressed("west")):
-		x_axis -= 1
-		face_direction(Direction.West)
-	elif (event.is_action_pressed("north")):
-		y_axis -= 1
-		face_direction(Direction.North)
-	elif (event.is_action_pressed("east")):
-		x_axis += 1
-		face_direction(Direction.East)
-	elif (event.is_action_pressed("shoot")):
+	if (event.is_action_pressed("shoot")):
 		shoot()
-	elif (event.is_action_pressed("zoom")):
+	if (event.is_action_pressed("zoom")):
 		zooming = true;
 		movement_locked = true;
-	elif (event.is_action_released("south")):
-		y_axis -= 1;
-		retrospect_direction()
-	elif (event.is_action_released("west")):
-		x_axis += 1
-		retrospect_direction()
-	elif (event.is_action_released("north")):
-		y_axis += 1
-		retrospect_direction()
-	elif (event.is_action_released("east")):
-		x_axis -= 1
-		retrospect_direction()
-	elif (event.is_action_released("health_add")):
+	elif (event.is_action_released("zoom")):
+		zooming = false;
+	if (event.is_action_released("pickup")):
+		pick_up();
+	
+	if (event.is_action_released("health_add")):
 		increment(health_progress);
 		update_health()
 	elif (event.is_action_released("xp_add")):
@@ -213,10 +191,6 @@ func _input(event):
 	elif (event.is_action_released("xp_sub")):
 		decrement(xp_progress);
 		update_xp()
-	elif (event.is_action_released("zoom")):
-		zooming = false;
-	elif (event.is_action_released("pickup")):
-		pick_up();
 
 func pick_up() -> void:
 	var arr = drop_range.get_overlapping_areas();

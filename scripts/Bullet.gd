@@ -9,7 +9,7 @@ var animator;
 
 
 func start(pos, dir):
-	rotation = (dir) * PI / 180
+	rotation = (dir)
 	position = pos
 	velocity = Vector2(0, speed).rotated(rotation)
 	animator = get_node("AnimationPlayer");
