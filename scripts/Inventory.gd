@@ -52,7 +52,7 @@ func add_drop(drop: Drop):
 			Stacks[i].increase(count);
 			update_slot(Stacks[i]);
 			return;
-	var new_stack = Items.StackDictionary[path].appopriate(count, Stacks.size());
+	var new_stack = Items.StackDictionary[path].appropriate(count, Stacks.size());
 	Stacks[path] = new_stack;
 	set_slot(Stacks.size() - 1, Stacks[path]);
 

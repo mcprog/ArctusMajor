@@ -199,6 +199,7 @@ func pick_up() -> void:
 		
 		print(arr[i].texture_path);
 		inventory.add_drop(arr[i]);
+		arr[i].queue_free();
 
 
 
